@@ -9,7 +9,7 @@ def main():
         report = Report(path)
         report.start()
 
-        technologies = ("Python", "Golang", "JavaScript")
+        technologies = ("Python", "Golang", "JavaScript", "Java")
         tech_row_name = 'title'
         for tech in technologies:
             report.create_tech_worksheet(tech, tech_row_name)

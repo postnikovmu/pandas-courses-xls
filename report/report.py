@@ -1,6 +1,16 @@
 import pandas as pd
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
+from openpyxl.styles import PatternFill
+from openpyxl.styles.borders import Border, Side
+
+CORN_FLOWER_BLUE = "6495ED"
+POWDER_BLUE = "B0E0E6"
+
+THIN_BORDER = Border(left=Side(style='thin'),
+                     right=Side(style='thin'),
+                     top=Side(style='thin'),
+                     bottom=Side(style='thin'))
 
 
 class Report:
@@ -35,7 +45,15 @@ class Report:
 
         for r_idx, row in enumerate(rows, 1):
             for c_idx, value in enumerate(row, 1):
-                ws.cell(row=r_idx, column=c_idx, value=value)
+                current_cell = ws.cell(row=r_idx, column=c_idx, value=value)
+                if r_idx > 1:
+                    self.format_body_tech_cell(current_cell)
+
+    def format_body_tech_cell(self, cell):
+        cell.fill = PatternFill(start_color=POWDER_BLUE,
+                                end_color=POWDER_BLUE,
+                                fill_type='solid')
+        cell.border = THIN_BORDER
 
     def start(self):
         self.create_first_worksheet()
